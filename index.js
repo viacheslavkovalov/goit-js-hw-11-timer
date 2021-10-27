@@ -19,7 +19,8 @@ class CountdownTimer{
     do() {
         let deltaTime = undefined;
         if (deltaTime <= 0) {
-                refs.timer.textContent = 'ПОЗДРАВЛЯЕМ С ДНЕМ РОЖДЕНИЯ!'
+            refs.timer.textContent = 'ПОЗДРАВЛЯЕМ С ДНЕМ РОЖДЕНИЯ!';
+            clearInterval(this.intervalId);
             return 
         };
 
