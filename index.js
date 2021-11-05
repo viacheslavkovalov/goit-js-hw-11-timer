@@ -12,7 +12,8 @@ class CountdownTimer{
         this.intervalId = null;
         this.onTick = onTick;
         this.selector = selector;
-        this.targetDate = targetDate;
+        this.date = new Date (`${targetDate}`);
+        this.year = this.date.getFullYear();
         this.do()
     };
 
@@ -21,12 +22,17 @@ class CountdownTimer{
         if (deltaTime <= 0) {
             refs.timer.textContent = 'ПОЗДРАВЛЯЕМ С ДНЕМ РОЖДЕНИЯ!';
             clearInterval(this.intervalId);
+          new CountdownTimer({
+              onTick: updateTimerInfo,
+              selector: '#timer-1',
+              targetDate: new Date(`Jan 16, ${this.year +1}`),
+            })
             return 
         };
 
         this.intervalId = setInterval(() => {
             const currentTime = Date.now();
-            deltaTime = this.targetDate - currentTime;
+            deltaTime = this.date - currentTime;
             const time = this.getTimeComponents(deltaTime);
             this.onTick(time);
         }, 1000)
@@ -49,7 +55,7 @@ class CountdownTimer{
 const timer = new CountdownTimer({
     onTick: updateTimerInfo,
     selector: '#timer-1',
-    targetDate: new Date('Jan 16, 2022').getTime(),
+    targetDate: new Date('Jan 16, 2022'),
 });
 
 
